@@ -90,7 +90,7 @@
   }
 }
 
-/* Theme transition overlay */
+/* Theme transition overlay (fallback) */
 .theme-transition-overlay {
   position: fixed;
   top: 0;
@@ -99,4 +99,17 @@
   height: 100%;
   z-index: 9999;
   pointer-events: none;
+}
+
+/* View Transition API styles */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-old(root) {
+  z-index: 1;
+}
+::view-transition-new(root) {
+  z-index: 9999;
 }

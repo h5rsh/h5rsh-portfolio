@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState, useCallback, useRef } from "react";
+import { createContext, useContext, useEffect, useState, useCallback } from "react";
 
 type Theme = "dark" | "light";
 
@@ -21,7 +21,6 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     }
     return "dark";
   });
-  const overlayRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -35,28 +34,56 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     const y = e.clientY;
     const newTheme = theme === "dark" ? "light" : "dark";
 
-    // Create overlay for circular reveal animation
-    const overlay = document.createElement("div");
-    overlay.className = "theme-transition-overlay";
-    overlay.style.backgroundColor = newTheme === "dark" ? "hsl(240 6% 6%)" : "hsl(0 0% 98%)";
-    overlay.style.clipPath = `circle(0px at ${x}px ${y}px)`;
-    document.body.appendChild(overlay);
+    // Check for View Transition API support for the best experience
+    if (document.startViewTransition) {
+      const transition = document.startViewTransition(() => {
+        setTheme(newTheme);
+      });
 
-    // Animate the circle expanding
-    requestAnimationFrame(() => {
-      const maxDim = Math.max(window.innerWidth, window.innerHeight);
-      const radius = Math.sqrt(maxDim * maxDim + maxDim * maxDim);
-      overlay.style.transition = "clip-path 0.7s cubic-bezier(0.4, 0, 0.2, 1)";
-      overlay.style.clipPath = `circle(${radius}px at ${x}px ${y}px)`;
-    });
+      transition.ready.then(() => {
+        const maxDim = Math.max(window.innerWidth, window.innerHeight);
+        const radius = Math.sqrt(maxDim * maxDim + maxDim * maxDim);
 
-    // After animation, apply theme and remove overlay
-    setTimeout(() => {
-      setTheme(newTheme);
+        document.documentElement.animate(
+          {
+            clipPath: [
+              `circle(0px at ${x}px ${y}px)`,
+              `circle(${radius}px at ${x}px ${y}px)`,
+            ],
+          },
+          {
+            duration: 700,
+            easing: "cubic-bezier(0.4, 0, 0.2, 1)",
+            pseudoElement: "::view-transition-new(root)",
+          }
+        );
+      });
+    } else {
+      // Fallback: DOM overlay approach
+      const overlay = document.createElement("div");
+      overlay.className = "theme-transition-overlay";
+      overlay.style.backgroundColor =
+        newTheme === "dark" ? "hsl(240, 6%, 6%)" : "hsl(0, 0%, 98%)";
+      overlay.style.clipPath = `circle(0px at ${x}px ${y}px)`;
+      document.body.appendChild(overlay);
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          const maxDim = Math.max(window.innerWidth, window.innerHeight);
+          const radius = Math.sqrt(maxDim * maxDim + maxDim * maxDim);
+          overlay.style.transition =
+            "clip-path 0.7s cubic-bezier(0.4, 0, 0.2, 1)";
+          overlay.style.clipPath = `circle(${radius}px at ${x}px ${y}px)`;
+        });
+      });
+
       setTimeout(() => {
-        overlay.remove();
-      }, 50);
-    }, 700);
+        setTheme(newTheme);
+        setTimeout(() => {
+          overlay.remove();
+        }, 50);
+      }, 700);
+    }
   }, [theme]);
 
   return (
