@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import { Sun, Moon, Menu, X } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
@@ -15,6 +15,21 @@ const Navbar = () => {
   const { theme, toggleTheme } = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  const handleNavClick = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+      e.preventDefault();
+      const id = href.replace("#", "");
+      const el = document.getElementById(id);
+      if (el) {
+        const navHeight = 80;
+        const top = el.getBoundingClientRect().top + window.scrollY - navHeight;
+        window.scrollTo({ top, behavior: "smooth" });
+      }
+      setMobileOpen(false);
+    },
+    []
+  );
+
   return (
     <motion.nav
       initial={{ y: -20, opacity: 0 }}
@@ -23,17 +38,20 @@ const Navbar = () => {
       className="fixed top-4 left-1/2 -translate-x-1/2 z-50"
     >
       <div className="flex items-center gap-1 px-2 py-2 rounded-full border border-border bg-card/80 backdrop-blur-xl shadow-lg">
-        {/* Logo */}
-        <a href="#home" className="px-3 py-1.5 font-heading text-sm font-bold text-primary">
+        <a
+          href="#home"
+          onClick={(e) => handleNavClick(e, "#home")}
+          className="px-3 py-1.5 font-heading text-sm font-bold text-primary"
+        >
           {"</>"}
         </a>
 
-        {/* Desktop links */}
         <div className="hidden md:flex items-center gap-1">
           {navItems.map((item) => (
             <a
               key={item.label}
               href={item.href}
+              onClick={(e) => handleNavClick(e, item.href)}
               className="px-3 py-1.5 text-sm font-body text-muted-foreground hover:text-foreground transition-colors rounded-full hover:bg-secondary"
             >
               {item.label}
@@ -41,16 +59,22 @@ const Navbar = () => {
           ))}
         </div>
 
-        {/* Theme toggle */}
         <button
           onClick={toggleTheme}
           className="p-2 rounded-full hover:bg-secondary transition-colors text-muted-foreground hover:text-foreground"
           aria-label="Toggle theme"
         >
-          {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+          <motion.div
+            key={theme}
+            initial={{ rotate: -90, opacity: 0, scale: 0.5 }}
+            animate={{ rotate: 0, opacity: 1, scale: 1 }}
+            exit={{ rotate: 90, opacity: 0, scale: 0.5 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+          >
+            {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+          </motion.div>
         </button>
 
-        {/* Mobile menu toggle */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
           className="md:hidden p-2 rounded-full hover:bg-secondary transition-colors text-muted-foreground"
@@ -59,7 +83,6 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Mobile dropdown */}
       {mobileOpen && (
         <motion.div
           initial={{ opacity: 0, y: -10 }}
@@ -70,7 +93,7 @@ const Navbar = () => {
             <a
               key={item.label}
               href={item.href}
-              onClick={() => setMobileOpen(false)}
+              onClick={(e) => handleNavClick(e, item.href)}
               className="block px-4 py-2 text-sm font-body text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-secondary"
             >
               {item.label}
