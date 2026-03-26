@@ -1,0 +1,67 @@
+import { createContext, useContext, useEffect, useState, useCallback, useRef } from "react";
+
+type Theme = "dark" | "light";
+
+interface ThemeContextType {
+  theme: Theme;
+  toggleTheme: (e: React.MouseEvent) => void;
+}
+
+const ThemeContext = createContext<ThemeContextType>({
+  theme: "dark",
+  toggleTheme: () => {},
+});
+
+export const useTheme = () => useContext(ThemeContext);
+
+export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof window !== "undefined") {
+      return (localStorage.getItem("theme") as Theme) || "dark";
+    }
+    return "dark";
+  });
+  const overlayRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    root.classList.remove("light", "dark");
+    root.classList.add(theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = useCallback((e: React.MouseEvent) => {
+    const x = e.clientX;
+    const y = e.clientY;
+    const newTheme = theme === "dark" ? "light" : "dark";
+
+    // Create overlay for circular reveal animation
+    const overlay = document.createElement("div");
+    overlay.className = "theme-transition-overlay";
+    overlay.style.backgroundColor = newTheme === "dark" ? "hsl(240 6% 6%)" : "hsl(0 0% 98%)";
+    overlay.style.clipPath = `circle(0px at ${x}px ${y}px)`;
+    document.body.appendChild(overlay);
+
+    // Animate the circle expanding
+    requestAnimationFrame(() => {
+      const maxDim = Math.max(window.innerWidth, window.innerHeight);
+      const radius = Math.sqrt(maxDim * maxDim + maxDim * maxDim);
+      overlay.style.transition = "clip-path 0.7s cubic-bezier(0.4, 0, 0.2, 1)";
+      overlay.style.clipPath = `circle(${radius}px at ${x}px ${y}px)`;
+    });
+
+    // After animation, apply theme and remove overlay
+    setTimeout(() => {
+      setTheme(newTheme);
+      setTimeout(() => {
+        overlay.remove();
+      }, 50);
+    }, 700);
+  }, [theme]);
+
+  return (
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+};
