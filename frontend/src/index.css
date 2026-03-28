@@ -12,19 +12,19 @@
     --card-foreground: 240 10% 10%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 10%;
-    --primary: 142 72% 42%;
+    --primary: 0 0% 9%;
     --primary-foreground: 0 0% 100%;
     --secondary: 240 5% 92%;
     --secondary-foreground: 240 10% 20%;
     --muted: 240 5% 94%;
     --muted-foreground: 240 4% 46%;
-    --accent: 142 72% 42%;
+    --accent: 0 0% 9%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
     --border: 240 6% 90%;
     --input: 240 6% 90%;
-    --ring: 142 72% 42%;
+    --ring: 0 0% 9%;
     --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
@@ -34,7 +34,7 @@
     --sidebar-accent: 240 4.8% 95.9%;
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 142 72% 42%;
+    --sidebar-ring: 0 0% 9%;
   }
 
   .dark {
@@ -44,28 +44,28 @@
     --card-foreground: 0 0% 93%;
     --popover: 240 5% 10%;
     --popover-foreground: 0 0% 93%;
-    --primary: 142 72% 45%;
-    --primary-foreground: 240 6% 6%;
+    --primary: 0 0% 100%;
+    --primary-foreground: 0 0% 9%;
     --secondary: 240 4% 16%;
     --secondary-foreground: 0 0% 85%;
     --muted: 240 4% 16%;
     --muted-foreground: 240 4% 55%;
-    --accent: 142 72% 45%;
-    --accent-foreground: 240 6% 6%;
+    --accent: 0 0% 100%;
+    --accent-foreground: 0 0% 9%;
     --destructive: 0 62% 30%;
     --destructive-foreground: 0 0% 100%;
     --border: 240 4% 18%;
     --input: 240 4% 18%;
-    --ring: 142 72% 45%;
+    --ring: 0 0% 100%;
 
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 142 72% 45%;
-    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-primary: 0 0% 100%;
+    --sidebar-primary-foreground: 0 0% 9%;
     --sidebar-accent: 240 3.7% 15.9%;
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 142 72% 45%;
+    --sidebar-ring: 0 0% 100%;
   }
 }
 
@@ -86,7 +86,7 @@
 
 @layer utilities {
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-emerald-400;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-foreground to-muted-foreground;
   }
 }
 
