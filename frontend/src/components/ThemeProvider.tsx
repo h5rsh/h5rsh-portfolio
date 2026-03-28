@@ -52,8 +52,8 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
             ],
           },
           {
-            duration: 700,
-            easing: "cubic-bezier(0.4, 0, 0.2, 1)",
+            duration: 1200,
+            easing: "cubic-bezier(0.25, 0.1, 0.25, 1)",
             pseudoElement: "::view-transition-new(root)",
           }
         );
@@ -72,7 +72,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
           const maxDim = Math.max(window.innerWidth, window.innerHeight);
           const radius = Math.sqrt(maxDim * maxDim + maxDim * maxDim);
           overlay.style.transition =
-            "clip-path 0.7s cubic-bezier(0.4, 0, 0.2, 1)";
+            "clip-path 1.2s cubic-bezier(0.25, 0.1, 0.25, 1)";
           overlay.style.clipPath = `circle(${radius}px at ${x}px ${y}px)`;
         });
       });
@@ -82,7 +82,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
         setTimeout(() => {
           overlay.remove();
         }, 50);
-      }, 700);
+      }, 1200);
     }
   }, [theme]);
 
