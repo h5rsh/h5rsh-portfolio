@@ -136,12 +136,7 @@ const ContributionGraph = () => {
 
   if (loading) {
     return (
-      <div
-        className="rounded-xl border border-border p-4 overflow-hidden"
-        style={{
-          backgroundColor: theme === "dark" ? "#0d1117" : "hsl(var(--card))",
-        }}
-      >
+      <div className="rounded-xl p-4 overflow-hidden">
         <p className="text-xs font-mono text-muted-foreground mb-3 italic">Contribution Graph</p>
         <div className="h-[140px] animate-pulse rounded-lg" style={{ backgroundColor: theme === "dark" ? "#161b22" : "#f0f0f0" }} />
       </div>
@@ -151,12 +146,7 @@ const ContributionGraph = () => {
   if (!data || weeks.length === 0) return null;
 
   return (
-    <div
-      className="rounded-xl border border-border p-4 sm:p-5 overflow-hidden"
-      style={{
-        backgroundColor: theme === "dark" ? "#0d1117" : "hsl(var(--card))",
-      }}
-    >
+    <div className="rounded-xl p-4 sm:p-5 overflow-hidden">
       <p className="text-xs font-mono text-muted-foreground mb-3 italic">Contribution Graph</p>
       <div className="overflow-x-auto">
         <svg
