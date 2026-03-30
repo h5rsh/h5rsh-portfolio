@@ -53,7 +53,7 @@ const Hero = () => {
             transition={{ delay: 0.5, duration: 0.6 }}
             className="text-foreground/80 font-body leading-relaxed max-w-lg"
           >
-            Love to build cool stuff. Full-stack developer passionate about creating beautiful, 
+            Love to build cool stuff. Full-stack developer passionate about creating beautiful,
             performant web experiences. Currently exploring the edges of what's possible on the web.
           </motion.p>
 

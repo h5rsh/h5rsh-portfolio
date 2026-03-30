@@ -98,17 +98,27 @@ const ContributionGraph = () => {
       weeksArr.push(currentWeek);
     }
 
-    // Build month labels with positions
-    const labels: { label: string; x: number }[] = [];
+    // Build month labels with positions — always include every month
+    const labels: { label: string; col: number; renderX: number }[] = [];
     let lastMonth = -1;
     for (let col = 0; col < weeksArr.length; col++) {
       const firstDay = weeksArr[col].find((d) => d !== null);
       if (firstDay) {
         const month = new Date(firstDay.date).getMonth();
         if (month !== lastMonth) {
-          labels.push({ label: MONTHS[month], x: col });
+          labels.push({ label: MONTHS[month], col, renderX: 0 });
           lastMonth = month;
         }
+      }
+    }
+
+    // Compute pixel positions and push apart overlapping labels
+    const cellStep = 11 + 3; // cellSize + cellGap
+    const minPixelGap = 30; // minimum px between label starts
+    for (let i = 0; i < labels.length; i++) {
+      labels[i].renderX = labels[i].col * cellStep;
+      if (i > 0 && labels[i].renderX - labels[i - 1].renderX < minPixelGap) {
+        labels[i].renderX = labels[i - 1].renderX + minPixelGap;
       }
     }
 
@@ -152,7 +162,7 @@ const ContributionGraph = () => {
           {monthLabels.map((m, i) => (
             <text
               key={i}
-              x={dayLabelWidth + m.x * step}
+              x={dayLabelWidth + m.renderX}
               y={14}
               fill={theme === "dark" ? "#8b949e" : "#57606a"}
               fontSize={13}
