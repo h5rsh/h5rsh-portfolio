@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Github, Star, GitFork, Users, BookOpen, ExternalLink } from "lucide-react";
+import ContributionGraph from "./ContributionGraph";
 
 const GITHUB_USERNAME = "h5rsh";
 
@@ -146,21 +147,15 @@ const GitHubStats = () => {
           ))}
         </motion.div>
 
-        {/* Contribution graph placeholder using GitHub's built-in image */}
+        {/* Contribution graph */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2, duration: 0.5 }}
-          className="mb-8 rounded-xl border border-border bg-card p-4 overflow-hidden"
+          className="mb-8"
         >
-          <p className="text-xs font-mono text-muted-foreground mb-3">Contribution Graph</p>
-          <img
-            src={`https://ghchart.rshah.org/${GITHUB_USERNAME}`}
-            alt={`${GITHUB_USERNAME}'s GitHub contribution chart`}
-            className="w-full rounded-lg dark:invert dark:opacity-80"
-            loading="lazy"
-          />
+          <ContributionGraph />
         </motion.div>
 
         {/* Recent repos */}
