@@ -43,9 +43,8 @@ const ContributionGraph = () => {
   useEffect(() => {
     const fetchContributions = async () => {
       try {
-        const currentYear = new Date().getFullYear();
         const res = await fetch(
-          `https://github-contributions-api.jogruber.de/v4/${GITHUB_USERNAME}?y=${currentYear}`
+          `https://github-contributions-api.jogruber.de/v4/${GITHUB_USERNAME}?y=last`
         );
         if (res.ok) {
           const json: ContributionData = await res.json();
@@ -60,21 +59,17 @@ const ContributionGraph = () => {
     fetchContributions();
   }, []);
 
-  const { weeks, monthLabels, totalContributions, year } = useMemo(() => {
-    if (!data) return { weeks: [], monthLabels: [], totalContributions: 0, year: new Date().getFullYear() };
+  const { weeks, monthLabels, totalContributions } = useMemo(() => {
+    if (!data) return { weeks: [], monthLabels: [], totalContributions: 0 };
 
-    const currentYear = new Date().getFullYear();
-    // Filter to only current year contributions
-    const yearContributions = data.contributions.filter((c) => {
-      const d = new Date(c.date);
-      return d.getFullYear() === currentYear;
-    });
+    const today = new Date();
+    // Filter to only past dates (up to today)
+    const contributions = data.contributions
+      .filter((c) => new Date(c.date) <= today)
+      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
-    // Sort by date
-    yearContributions.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-
-    if (yearContributions.length === 0) {
-      return { weeks: [], monthLabels: [], totalContributions: 0, year: currentYear };
+    if (contributions.length === 0) {
+      return { weeks: [], monthLabels: [], totalContributions: 0 };
     }
 
     // Build weeks grid (7 rows x N columns)
@@ -82,12 +77,12 @@ const ContributionGraph = () => {
     let currentWeek: (ContributionDay | null)[] = [];
 
     // Pad start of first week with nulls
-    const firstDayOfWeek = new Date(yearContributions[0].date).getDay();
+    const firstDayOfWeek = new Date(contributions[0].date).getDay();
     for (let i = 0; i < firstDayOfWeek; i++) {
       currentWeek.push(null);
     }
 
-    for (const day of yearContributions) {
+    for (const day of contributions) {
       currentWeek.push(day);
       if (currentWeek.length === 7) {
         weeksArr.push(currentWeek);
@@ -107,7 +102,6 @@ const ContributionGraph = () => {
     const labels: { label: string; x: number }[] = [];
     let lastMonth = -1;
     for (let col = 0; col < weeksArr.length; col++) {
-      // Find the first non-null day in this week
       const firstDay = weeksArr[col].find((d) => d !== null);
       if (firstDay) {
         const month = new Date(firstDay.date).getMonth();
@@ -118,9 +112,9 @@ const ContributionGraph = () => {
       }
     }
 
-    const total = data.total[String(currentYear)] || 0;
+    const total = contributions.reduce((sum, c) => sum + c.count, 0);
 
-    return { weeks: weeksArr, monthLabels: labels, totalContributions: total, year: currentYear };
+    return { weeks: weeksArr, monthLabels: labels, totalContributions: total };
   }, [data]);
 
   const levelColors = theme === "dark" ? DARK_LEVEL_COLORS : LIGHT_LEVEL_COLORS;
@@ -148,12 +142,11 @@ const ContributionGraph = () => {
   return (
     <div className="rounded-xl p-4 sm:p-5 overflow-hidden">
       <p className="text-xs font-mono text-muted-foreground mb-3 italic">Contribution Graph</p>
-      <div className="overflow-x-auto">
+      <div>
         <svg
-          width={svgWidth}
-          height={svgHeight}
+          width="100%"
           viewBox={`0 0 ${svgWidth} ${svgHeight}`}
-          style={{ minWidth: svgWidth }}
+          preserveAspectRatio="xMidYMid meet"
         >
           {/* Month labels */}
           {monthLabels.map((m, i) => (
@@ -187,10 +180,6 @@ const ContributionGraph = () => {
           {weeks.map((week, col) =>
             week.map((day, row) => {
               if (!day) return null;
-              const today = new Date();
-              const dayDate = new Date(day.date);
-              // Don't render future dates
-              if (dayDate > today) return null;
 
               return (
                 <rect
@@ -217,7 +206,7 @@ const ContributionGraph = () => {
             fontSize={10}
             fontFamily="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace"
           >
-            {totalContributions} activities in {year}
+            {totalContributions} contributions in the last year
           </text>
 
           {/* Legend */}
