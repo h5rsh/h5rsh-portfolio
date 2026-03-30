@@ -122,9 +122,9 @@ const ContributionGraph = () => {
   const cellSize = 11;
   const cellGap = 3;
   const step = cellSize + cellGap;
-  const dayLabelWidth = 30;
-  const headerHeight = 20;
-  const footerHeight = 24;
+  const dayLabelWidth = 0;
+  const headerHeight = 22;
+  const footerHeight = 28;
   const svgWidth = dayLabelWidth + weeks.length * step + 8;
   const svgHeight = headerHeight + 7 * step + footerHeight;
 
@@ -153,28 +153,16 @@ const ContributionGraph = () => {
             <text
               key={i}
               x={dayLabelWidth + m.x * step}
-              y={12}
+              y={14}
               fill={theme === "dark" ? "#8b949e" : "#57606a"}
-              fontSize={10}
+              fontSize={13}
               fontFamily="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace"
             >
               {m.label}
             </text>
           ))}
 
-          {/* Day labels (Mon, Wed, Fri) */}
-          {[1, 3, 5].map((dayIdx) => (
-            <text
-              key={dayIdx}
-              x={0}
-              y={headerHeight + dayIdx * step + cellSize - 2}
-              fill={theme === "dark" ? "#8b949e" : "#57606a"}
-              fontSize={9}
-              fontFamily="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace"
-            >
-              {DAYS[dayIdx]}
-            </text>
-          ))}
+
 
           {/* Contribution cells */}
           {weeks.map((week, col) =>
@@ -203,7 +191,7 @@ const ContributionGraph = () => {
             x={dayLabelWidth}
             y={svgHeight - 4}
             fill={theme === "dark" ? "#8b949e" : "#57606a"}
-            fontSize={10}
+            fontSize={12}
             fontFamily="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace"
           >
             {totalContributions} contributions in the last year
@@ -214,7 +202,7 @@ const ContributionGraph = () => {
             x={svgWidth - 125}
             y={svgHeight - 4}
             fill={theme === "dark" ? "#8b949e" : "#57606a"}
-            fontSize={10}
+            fontSize={12}
             fontFamily="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace"
           >
             Less
@@ -235,7 +223,7 @@ const ContributionGraph = () => {
             x={svgWidth - 95 + 5 * (cellSize + 2)}
             y={svgHeight - 4}
             fill={theme === "dark" ? "#8b949e" : "#57606a"}
-            fontSize={10}
+            fontSize={12}
             fontFamily="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace"
           >
             More
