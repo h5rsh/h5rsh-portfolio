@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { Github, Star, Users, BookOpen, ExternalLink } from "lucide-react";
+import { Github, Users, BookOpen, ExternalLink } from "lucide-react";
 import ContributionGraph from "./ContributionGraph";
 
 const GITHUB_USERNAME = "h5rsh";
@@ -8,7 +8,7 @@ const GITHUB_USERNAME = "h5rsh";
 interface GitHubUser {
   public_repos: number;
   followers: number;
-  following: number;
+
   avatar_url: string;
   html_url: string;
   name: string | null;
@@ -19,23 +19,18 @@ interface GitHubUser {
 
 const GitHubStats = () => {
   const [user, setUser] = useState<GitHubUser | null>(null);
-  const [totalStars, setTotalStars] = useState(0);
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [userRes, reposRes] = await Promise.all([
-          fetch(`https://api.github.com/users/${GITHUB_USERNAME}`),
-          fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`),
-        ]);
+        const userRes = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}`);
 
-        if (userRes.ok && reposRes.ok) {
+        if (userRes.ok) {
           const userData: GitHubUser = await userRes.json();
-          const reposData = await reposRes.json();
 
           setUser(userData);
-          setTotalStars(reposData.reduce((sum: number, r: { stargazers_count: number }) => sum + r.stargazers_count, 0));
         }
       } catch (err) {
         console.error("Failed to fetch GitHub data:", err);
@@ -66,9 +61,7 @@ const GitHubStats = () => {
 
   const stats = [
     { icon: BookOpen, label: "Repositories", value: user.public_repos },
-    { icon: Star, label: "Stars", value: totalStars },
     { icon: Users, label: "Followers", value: user.followers },
-    { icon: Users, label: "Following", value: user.following },
   ];
 
   return (
@@ -100,7 +93,7 @@ const GitHubStats = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1, duration: 0.5 }}
-          className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8"
+          className="grid grid-cols-2 gap-3 mb-8"
         >
           {stats.map((stat, i) => (
             <motion.div
