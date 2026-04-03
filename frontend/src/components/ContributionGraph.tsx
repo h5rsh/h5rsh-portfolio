@@ -113,8 +113,8 @@ const ContributionGraph = () => {
     }
 
     // Compute pixel positions and push apart overlapping labels
-    const cellStep = 11 + 3; // cellSize + cellGap
-    const minPixelGap = 30; // minimum px between label starts
+    const cellStep = 12 + 3; // cellSize + cellGap
+    const minPixelGap = 34; // minimum px between label starts
     for (let i = 0; i < labels.length; i++) {
       labels[i].renderX = labels[i].col * cellStep;
       if (i > 0 && labels[i].renderX - labels[i - 1].renderX < minPixelGap) {
@@ -129,12 +129,12 @@ const ContributionGraph = () => {
 
   const levelColors = theme === "dark" ? DARK_LEVEL_COLORS : LIGHT_LEVEL_COLORS;
 
-  const cellSize = 11;
+  const cellSize = 12;
   const cellGap = 3;
   const step = cellSize + cellGap;
   const dayLabelWidth = 0;
-  const headerHeight = 22;
-  const footerHeight = 28;
+  const headerHeight = 24;
+  const footerHeight = 30;
   const svgWidth = dayLabelWidth + weeks.length * step + 8;
   const svgHeight = headerHeight + 7 * step + footerHeight;
 
@@ -165,7 +165,7 @@ const ContributionGraph = () => {
               x={dayLabelWidth + m.renderX}
               y={14}
               fill={theme === "dark" ? "#8b949e" : "#57606a"}
-              fontSize={13}
+              fontSize={14}
               fontFamily="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace"
             >
               {m.label}
@@ -199,9 +199,9 @@ const ContributionGraph = () => {
           {/* Footer: total + legend */}
           <text
             x={dayLabelWidth}
-            y={svgHeight - 4}
+            y={svgHeight - 6}
             fill={theme === "dark" ? "#8b949e" : "#57606a"}
-            fontSize={12}
+            fontSize={13}
             fontFamily="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace"
           >
             {totalContributions} contributions in the last year
@@ -209,10 +209,10 @@ const ContributionGraph = () => {
 
           {/* Legend */}
           <text
-            x={svgWidth - 125}
-            y={svgHeight - 4}
+            x={svgWidth - 140}
+            y={svgHeight - 6}
             fill={theme === "dark" ? "#8b949e" : "#57606a"}
-            fontSize={12}
+            fontSize={13}
             fontFamily="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace"
           >
             Less
@@ -220,8 +220,8 @@ const ContributionGraph = () => {
           {levelColors.map((color, i) => (
             <rect
               key={i}
-              x={svgWidth - 95 + i * (cellSize + 2)}
-              y={svgHeight - 14}
+              x={svgWidth - 110 + i * (cellSize + 3)}
+              y={svgHeight - 16}
               width={cellSize}
               height={cellSize}
               rx={2}
@@ -230,10 +230,10 @@ const ContributionGraph = () => {
             />
           ))}
           <text
-            x={svgWidth - 95 + 5 * (cellSize + 2)}
-            y={svgHeight - 4}
+            x={svgWidth - 110 + 5 * (cellSize + 3)}
+            y={svgHeight - 6}
             fill={theme === "dark" ? "#8b949e" : "#57606a"}
-            fontSize={12}
+            fontSize={13}
             fontFamily="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace"
           >
             More
