@@ -3,10 +3,10 @@ import { Github, Linkedin, Twitter, Mail, Download } from "lucide-react";
 import avatarImg from "@/assets/avatar.png";
 
 const socials = [
-  { icon: Github, href: "https://github.com", label: "GitHub" },
-  { icon: Twitter, href: "https://x.com", label: "X/Twitter" },
-  { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-  { icon: Mail, href: "mailto:hello@example.com", label: "Email" },
+  { icon: Github, href: "https://github.com/h5rsh", label: "GitHub" },
+  { icon: Twitter, href: "https://x.com/h5rsh", label: "X/Twitter" },
+  { icon: Linkedin, href: "https://linkedin.com/in/h5rsh", label: "LinkedIn" },
+  { icon: Mail, href: "mailto:[hariom1203@gmail.com]", label: "Email" },
 ];
 
 const Hero = () => {
