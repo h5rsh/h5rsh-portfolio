@@ -63,7 +63,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
       const overlay = document.createElement("div");
       overlay.className = "theme-transition-overlay";
       overlay.style.backgroundColor =
-        newTheme === "dark" ? "hsl(240, 6%, 6%)" : "hsl(0, 0%, 98%)";
+        newTheme === "dark" ? "hsl(0, 0%, 0%)" : "hsl(0, 0%, 98%)";
       overlay.style.clipPath = `circle(0px at ${x}px ${y}px)`;
       document.body.appendChild(overlay);
 

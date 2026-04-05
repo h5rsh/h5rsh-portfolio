@@ -14,13 +14,13 @@ interface ContributionData {
   contributions: ContributionDay[];
 }
 
-// Dark mode: GitHub's dark default theme colors (grayscale like reference)
+// Dark mode: pure black theme with grayscale contribution levels
 const DARK_LEVEL_COLORS = [
-  "#2d333b", // level 0 - empty
-  "#4a5058", // level 1 - low
-  "#6e7681", // level 2 - medium
-  "#adbac7", // level 3 - high
-  "#e6edf3", // level 4 - max (near white)
+  "#161616", // level 0 - empty (near black)
+  "#4a4a4a", // level 1 - low
+  "#737373", // level 2 - medium
+  "#b0b0b0", // level 3 - high
+  "#e6e6e6", // level 4 - max (near white)
 ];
 
 // Light mode: GitHub's classic green palette
@@ -142,7 +142,7 @@ const ContributionGraph = () => {
     return (
       <div className="rounded-xl p-4 overflow-hidden">
         <p className="text-xs font-mono text-muted-foreground mb-3 italic">Contribution Graph</p>
-        <div className="h-[140px] animate-pulse rounded-lg" style={{ backgroundColor: theme === "dark" ? "#161b22" : "#f0f0f0" }} />
+        <div className="h-[140px] animate-pulse rounded-lg" style={{ backgroundColor: theme === "dark" ? "#0a0a0a" : "#f0f0f0" }} />
       </div>
     );
   }
@@ -164,7 +164,7 @@ const ContributionGraph = () => {
               key={i}
               x={dayLabelWidth + m.renderX}
               y={14}
-              fill={theme === "dark" ? "#8b949e" : "#57606a"}
+              fill={theme === "dark" ? "#a0a0a0" : "#57606a"}
               fontSize={14}
               fontFamily="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace"
             >
@@ -200,7 +200,7 @@ const ContributionGraph = () => {
           <text
             x={dayLabelWidth}
             y={svgHeight - 6}
-            fill={theme === "dark" ? "#8b949e" : "#57606a"}
+            fill={theme === "dark" ? "#a0a0a0" : "#57606a"}
             fontSize={13}
             fontFamily="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace"
           >
@@ -211,7 +211,7 @@ const ContributionGraph = () => {
           <text
             x={svgWidth - 140}
             y={svgHeight - 6}
-            fill={theme === "dark" ? "#8b949e" : "#57606a"}
+            fill={theme === "dark" ? "#a0a0a0" : "#57606a"}
             fontSize={13}
             fontFamily="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace"
           >
@@ -232,7 +232,7 @@ const ContributionGraph = () => {
           <text
             x={svgWidth - 110 + 5 * (cellSize + 3)}
             y={svgHeight - 6}
-            fill={theme === "dark" ? "#8b949e" : "#57606a"}
+            fill={theme === "dark" ? "#a0a0a0" : "#57606a"}
             fontSize={13}
             fontFamily="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace"
           >
