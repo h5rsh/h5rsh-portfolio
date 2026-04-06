@@ -39,7 +39,7 @@ const Hero = () => {
             transition={{ delay: 0.3, duration: 0.6 }}
           >
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-              John Doe
+              Harsh
             </h1>
             <p className="mt-2 text-muted-foreground font-mono text-sm">
               Engineer · Creator · Builder
