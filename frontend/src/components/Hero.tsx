@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Github, Linkedin, Twitter, Mail, Download } from "lucide-react";
-import avatarImg from "@/assets/avatar.png";
+import avatarImg from "@/assets/portrait.jpg";
 
 const socials = [
   { icon: Github, href: "https://github.com/h5rsh", label: "GitHub" },
