@@ -18,7 +18,7 @@ const projects = [
     description:
       "A Python notebook-based document scanning and processing tool. Provides features like image capture, edge detection, perspective correction, and export to PDF/image.",
     image: DocScanner,
-    tags: ["Python", "OpenCV", "NumPy", "Jupyter Notebook"],
+    tags: ["Python", "OpenCV", "NumPy", "Matplotlib", "Jupyter Notebook"],
     live: "https://github.com/h5rsh/DocScanner",
     github: "https://github.com/h5rsh/DocScanner",
   },
