@@ -1,23 +1,23 @@
 import { motion } from "framer-motion";
 import { ExternalLink, Github } from "lucide-react";
-import project1Img from "@/assets/project1.jpg";
-import project2Img from "@/assets/project2.jpg";
+import LocalRootImg from "@/assets/LocalRoot.jpg";
+import DocScanner from "@/assets/image.png";
 
 const projects = [
   {
-    title: "DevFlow",
+    title: "LocalRoot",
     description:
-      "A developer productivity platform with real-time collaboration, code reviews, and CI/CD pipeline management. Built for teams who ship fast.",
-    image: project1Img,
-    tags: ["React", "TypeScript", "Node.js", "PostgreSQL"],
-    live: "#",
+      "A trust based localized E-Commerce platform for small shopkeepers.",
+    image: LocalRootImg,
+    tags: ["React", "TypeScript", "Node.js","Django", "MongoDB"],
+    live: "https://www.localroot.shop",
     github: "#",
   },
   {
-    title: "DataViz Studio",
+    title: "",
     description:
       "Interactive data visualization tool with custom chart builders, real-time data streaming, and export capabilities. Used by 500+ analysts.",
-    image: project2Img,
+    image: DocScanner,
     tags: ["Next.js", "D3.js", "Python", "Redis"],
     live: "#",
     github: "#",
