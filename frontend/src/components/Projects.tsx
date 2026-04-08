@@ -16,11 +16,11 @@ const projects = [
   {
     title: "",
     description:
-      "Interactive data visualization tool with custom chart builders, real-time data streaming, and export capabilities. Used by 500+ analysts.",
+      "A Python notebook-based document scanning and processing tool. Provides features like image capture, edge detection, perspective correction, and export to PDF/image.",
     image: DocScanner,
-    tags: ["Next.js", "D3.js", "Python", "Redis"],
-    live: "#",
-    github: "#",
+    tags: ["Python", "OpenCV", "NumPy", "Jupyter Notebook"],
+    live: "https://github.com/h5rsh/DocScanner",
+    github: "https://github.com/h5rsh/DocScanner",
   },
 ];
 
