@@ -86,8 +86,9 @@ const Hero = () => {
             className="flex items-center gap-3 mt-2"
           >
             <a
-              href="#projects"
+              href="https://github.com/h5rsh"
               className="px-5 py-2.5 rounded-lg bg-primary text-primary-foreground font-mono text-sm font-medium hover:opacity-90 transition-opacity"
+              target="_blank"
             >
               View Projects
             </a>
