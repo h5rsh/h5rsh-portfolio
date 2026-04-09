@@ -9,7 +9,7 @@ const navItems = [
   { label: "Skills", href: "#skills" },
   { label: "Projects", href: "#projects" },
   { label: "GitHub", href: "#github" },
-  { label: "Blog", href: "#blog" },
+  { label: "Blogs", href: "#blog" },
 ];
 
 const Navbar = () => {
