@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { ExternalLink, Github } from "lucide-react";
-import LocalRootImg from "@/assets/LocalRoot.jpg";
+import LocalRootImg from "@/assets/localroot.png";
 import DocScanner from "@/assets/image.png";
 
 const projects = [
