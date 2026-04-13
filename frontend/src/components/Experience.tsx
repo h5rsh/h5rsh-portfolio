@@ -10,8 +10,8 @@ const experiences = [
   },
   {
     company: "IBM",
-    role: "Frontend Engineer",
-    period: "Jun 2023 – Dec 2024",
+    role: "Internship/Training",
+    period: "Sep 2023 – Oct 2023",
     location: "Remote",
   },
   {
