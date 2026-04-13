@@ -12,13 +12,7 @@ const experiences = [
     company: "IBM",
     role: "Internship/Training",
     period: "Sep 2023 – Oct 2023",
-    location: "Remote",
-  },
-  {
-    company: "Dev Studio",
-    role: "Full Stack Developer Intern",
-    period: "Jan 2023 – May 2023",
-    location: "New York, NY",
+    location: "Lucknow, India",
   },
 ];
 
