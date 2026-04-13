@@ -2,14 +2,14 @@ import { motion } from "framer-motion";
 
 const experiences = [
   {
-    company: "Tech Corp",
-    role: "Senior Full Stack Developer",
-    period: "Jan 2025 – Present",
-    location: "San Francisco, CA",
+    company: "Freelance",
+    role: "FullStack Developer",
+    period: "Nov 2023 – Present",
+    location: "Remote",
     status: "Working",
   },
   {
-    company: "Startup Inc",
+    company: "IBM",
     role: "Frontend Engineer",
     period: "Jun 2023 – Dec 2024",
     location: "Remote",
