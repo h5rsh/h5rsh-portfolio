@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 import { blogs } from "@/data/blogs";
 
 const Blog = () => {
+  // Show only the 2 latest blogs on the home page as a preview
+  const previewBlogs = blogs.slice(0, 2);
+
   return (
     <section id="blog" className="py-20">
       <div className="container max-w-2xl mx-auto px-6">
@@ -14,11 +17,11 @@ const Blog = () => {
           transition={{ duration: 0.5 }}
           className="text-2xl font-bold mb-10"
         >
-          Blog
+          Latest Blogs
         </motion.h2>
 
         <div className="space-y-4">
-          {blogs.map((post, i) => (
+          {previewBlogs.map((post, i) => (
             <motion.div
               key={post.slug}
               initial={{ opacity: 0, y: 20 }}
@@ -50,6 +53,22 @@ const Blog = () => {
             </motion.div>
           ))}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3, duration: 0.5 }}
+          className="mt-8 text-center"
+        >
+          <Link
+            to="/blogs"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-border text-foreground font-mono text-sm font-medium hover:bg-secondary transition-colors"
+          >
+            View all posts
+            <ArrowRight size={14} />
+          </Link>
+        </motion.div>
       </div>
     </section>
   );

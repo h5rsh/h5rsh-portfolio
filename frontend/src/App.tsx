@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import BlogPost from "./pages/BlogPost.tsx";
+import Blogs from "./pages/Blogs.tsx";
 
 const queryClient = new QueryClient();
 
@@ -19,6 +20,7 @@ const App = () => (
         <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '')}>
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/blogs" element={<Blogs />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

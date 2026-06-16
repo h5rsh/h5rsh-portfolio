@@ -1,34 +1,46 @@
 import { useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import { Sun, Moon, Menu, X } from "lucide-react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useTheme } from "./ThemeProvider";
 
 const navItems = [
-  { label: "Home", href: "#home" },
-  { label: "Experience", href: "#experience" },
-  { label: "Skills", href: "#skills" },
-  { label: "Projects", href: "#projects" },
-  { label: "GitHub", href: "#github" },
-  { label: "Blogs", href: "#blog" },
+  { label: "Home", href: "/#home" },
+  { label: "Experience", href: "/#experience" },
+  { label: "Skills", href: "/#skills" },
+  { label: "Projects", href: "/#projects" },
+  { label: "GitHub", href: "/#github" },
+  { label: "Blogs", href: "/blogs" },
 ];
 
 const Navbar = () => {
   const { theme, toggleTheme } = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
       e.preventDefault();
-      const id = href.replace("#", "");
-      const el = document.getElementById(id);
-      if (el) {
-        const navHeight = 80;
-        const top = el.getBoundingClientRect().top + window.scrollY - navHeight;
-        window.scrollTo({ top, behavior: "smooth" });
-      }
       setMobileOpen(false);
+
+      if (href.startsWith("/#")) {
+        const id = href.replace("/#", "");
+        if (location.pathname === "/") {
+          const el = document.getElementById(id);
+          if (el) {
+            const navHeight = 80;
+            const top = el.getBoundingClientRect().top + window.scrollY - navHeight;
+            window.scrollTo({ top, behavior: "smooth" });
+          }
+        } else {
+          navigate(href);
+        }
+      } else {
+        navigate(href);
+      }
     },
-    []
+    [location.pathname, navigate]
   );
 
   return (
@@ -40,8 +52,8 @@ const Navbar = () => {
     >
       <div className="flex items-center gap-1 px-2 py-2 rounded-full border border-border bg-card/80 backdrop-blur-xl shadow-lg">
         <a
-          href="#home"
-          onClick={(e) => handleNavClick(e, "#home")}
+          href="/#home"
+          onClick={(e) => handleNavClick(e, "/#home")}
           className="px-3 py-1.5 font-heading text-sm font-bold text-primary"
         >
           {"</>"}

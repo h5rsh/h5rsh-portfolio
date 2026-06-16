@@ -13,6 +13,11 @@ export default defineConfig(({ mode }) => ({
       overlay: false,
     },
   },
+  esbuild: {
+    supported: {
+      destructuring: true,
+    },
+  },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {
     alias: {

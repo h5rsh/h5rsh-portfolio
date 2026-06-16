@@ -89,9 +89,9 @@
     "vitest": "^3.2.4"
   },
   "overrides": {
-    "minimatch": "10.0.3",
-    "brace-expansion": "5.0.5",
-    "esbuild": "0.25.12",
+    "minimatch": "10.2.5",
+    "brace-expansion": "5.0.6",
+    "esbuild": "0.28.1",
     "@tootallnate/once": "3.0.1"
   }
 }
