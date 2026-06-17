@@ -63,7 +63,7 @@ const ContributionGraph = () => {
           const json = await res.json();
           const parsed = ContributionDataSchema.safeParse(json);
           if (parsed.success) {
-            setData(parsed.data);
+            setData(parsed.data as ContributionData);
           } else {
             console.error("Invalid contribution data from API:", parsed.error);
           }
