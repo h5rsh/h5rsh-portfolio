@@ -59,6 +59,8 @@ const Projects = () => {
                   {project.live && (
                     <a
                       href={project.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="p-2 rounded-lg bg-card/80 backdrop-blur-sm border border-border text-foreground hover:text-primary transition-colors"
                     >
                       <ExternalLink size={14} />
@@ -67,6 +69,8 @@ const Projects = () => {
                   {project.github && (
                     <a
                       href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="p-2 rounded-lg bg-card/80 backdrop-blur-sm border border-border text-foreground hover:text-primary transition-colors"
                     >
                       <Github size={14} />

@@ -18,6 +18,13 @@ export default defineConfig(({ mode }) => ({
       destructuring: true,
     },
   },
+  optimizeDeps: {
+    esbuildOptions: {
+      supported: {
+        destructuring: true,
+      },
+    },
+  },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {
     alias: {

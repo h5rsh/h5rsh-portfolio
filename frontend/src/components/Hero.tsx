@@ -6,7 +6,7 @@ const socials = [
   { icon: Github, href: "https://github.com/h5rsh", label: "GitHub" },
   { icon: Twitter, href: "https://x.com/h5rsh", label: "X/Twitter" },
   { icon: Linkedin, href: "https://linkedin.com/in/h5rsh", label: "LinkedIn" },
-  { icon: Mail, href: "mailto:[hariom1203@gmail.com]", label: "Email" },
+  { icon: Mail, href: "mailto:hariom1203@gmail.com", label: "Email" },
 ];
 
 const Hero = () => {
@@ -89,6 +89,7 @@ const Hero = () => {
               href="https://github.com/h5rsh"
               className="px-5 py-2.5 rounded-lg bg-primary text-primary-foreground font-mono text-sm font-medium hover:opacity-90 transition-opacity"
               target="_blank"
+              rel="noopener noreferrer"
             >
               View Projects
             </a>

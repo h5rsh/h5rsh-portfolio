@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo } from "react";
 import { useTheme } from "./ThemeProvider";
+import { z } from "zod";
 
 const GITHUB_USERNAME = "h5rsh";
 
@@ -13,6 +14,18 @@ interface ContributionData {
   total: Record<string, number>;
   contributions: ContributionDay[];
 }
+
+// Zod schema to validate the third-party API response
+const ContributionDaySchema = z.object({
+  date: z.string(),
+  count: z.number(),
+  level: z.number().min(0).max(4),
+});
+
+const ContributionDataSchema = z.object({
+  total: z.record(z.number()),
+  contributions: z.array(ContributionDaySchema),
+});
 
 // Dark mode: pure black theme with grayscale contribution levels
 const DARK_LEVEL_COLORS = [
@@ -47,8 +60,13 @@ const ContributionGraph = () => {
           `https://github-contributions-api.jogruber.de/v4/${GITHUB_USERNAME}?y=last`
         );
         if (res.ok) {
-          const json: ContributionData = await res.json();
-          setData(json);
+          const json = await res.json();
+          const parsed = ContributionDataSchema.safeParse(json);
+          if (parsed.success) {
+            setData(parsed.data);
+          } else {
+            console.error("Invalid contribution data from API:", parsed.error);
+          }
         }
       } catch (err) {
         console.error("Failed to fetch contribution data:", err);
