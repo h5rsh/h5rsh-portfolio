@@ -34,7 +34,7 @@ const BlogPost = () => {
         className="flex-1 container max-w-3xl mx-auto px-6 py-12"
       >
         <Link 
-          to="/#blog" 
+          to="/blogs" 
           className="inline-flex items-center text-sm text-muted-foreground hover:text-primary transition-colors mb-8 group"
         >
           <ArrowLeft size={16} className="mr-2 group-hover:-translate-x-1 transition-transform" />
