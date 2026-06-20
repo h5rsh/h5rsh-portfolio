@@ -20,7 +20,7 @@ Here is a preview of the application in action:
 
 | ☀️ Light Theme (Home) | 🌙 Dark Theme (Home) |
 |:---:|:---:|
-| ![Light Mode Home](assets/home-desktop.png) | ![Dark Mode Home](assets/home-dark-desktop.png) |
+| ![Light Mode Home](assets/home-light-desktop.png) | ![Dark Mode Home](assets/home-dark-desktop.png) |
 
 | 📁 Projects Showcase | ✍️ Personal Blog |
 |:---:|:---:|
